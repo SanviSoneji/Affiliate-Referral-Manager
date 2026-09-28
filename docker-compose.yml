@@ -1,0 +1,15 @@
+# Optional: run a local MySQL with the schema pre-loaded.
+#   docker compose up -d
+# then set DB_HOST=127.0.0.1, DB_USER=root, DB_PASSWORD=root in server/.env
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./server/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - mysql_data:/var/lib/mysql
+volumes:
+  mysql_data:
